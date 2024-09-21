@@ -1,0 +1,40 @@
+.home-title{
+  font-size: 4rem;
+  letter-spacing: 1rem;
+  margin-top: 6rem;
+}
+.category-title{
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
+.category-list{
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.category-item{
+  border: .5px solid var(--blue-gray);
+  background-color: var(--jean-blue);
+  width: 200px;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 15px;
+  min-height: 100px;
+  box-shadow: 2px 2px 2px var(--mid-gray);
+  min-width: 150px;
+}
+
+.category-item a{
+  font-size: 1rem;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+.category-item a:hover{
+  color: black;
+}
+.category-item:hover{
+  background-color:  rgb(167, 200, 218);
+  box-shadow: 1px 1px;
+  transition: box-shadow 0.1s linear 0.1s;
+}
