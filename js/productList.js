@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
     
   }
 
-async function populateProducts(){
-  const products = await fetchProducts();
+async function populateProducts(flag, customProducts){
+  let products= customProducts;
+  if(flag == false){
+    products = await fetchProducts();
+  }
   const productList = document.querySelector('#productList');
   products.forEach(product => {
     const productItem = document.createElement('a');
@@ -41,5 +44,27 @@ async function populateProducts(){
     productList.appendChild(productItem);
   });
 } 
-populateProducts();
+populateProducts(false);
+
+const filterSearch = document.querySelector('#SSearch');
+ filterSearch.addEventListener("click",async ()=>{
+  const productList = document.querySelector('#productList');
+  const minPrice = Number(document.querySelector('#minPrice').value);
+  const maxPrice = Number(document.querySelector('#maxPrice').value);
+
+  const products = await fetchProducts();
+  filteredProducts= products.filter(product => product.price>=minPrice && product.price<=maxPrice);
+  productList.innerHTML ="";
+  populateProducts(true, filteredProducts);
+
+ });
+
+ const resetFilter = document.querySelector('#clear');
+ resetFilter.addEventListener("click", ()=>{
+  window.location.reload();
+ });
+
 });
+
+
+ 
