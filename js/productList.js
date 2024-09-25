@@ -31,6 +31,7 @@ async function populateProducts(flag, customProducts){
     products = await fetchProducts();
     }
   }
+ 
   const productList = document.querySelector('#productList');
   products.forEach(product => {
     const productItem = document.createElement('a');
@@ -81,9 +82,15 @@ async function populateCategories(){
 }
 
 
+async function downloadContentAndPopulate(){
+Promise.all([populateProducts(false), populateCategories()])
+.then(() =>{
+  const loaderBackdrop = document.querySelector('#loader-backdrop');
+  loaderBackdrop.style.display ='none';
+});
+}
 
-populateProducts(false);
-populateCategories();
+downloadContentAndPopulate();
 
 const filterSearch = document.querySelector('#SSearch');
  filterSearch.addEventListener("click",async ()=>{

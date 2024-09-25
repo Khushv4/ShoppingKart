@@ -6,6 +6,8 @@ async function fetchCategories(){
 
 async function populateCategories(){
   const categories = await fetchCategories();
+    const loaderBackdrop = document.querySelector('#loader-backdrop');
+    loaderBackdrop.style.display ='none';
   const categoryList = document.querySelector('#categoryList');
   categories.forEach(category => {
     const categoryHolder = document.createElement('div');
