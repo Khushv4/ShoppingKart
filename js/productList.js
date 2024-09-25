@@ -1,15 +1,28 @@
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded",async ()=>{
   async function fetchProducts(){
     const response =await axios.get("https://fakestoreapi.com/products");
     console.log(response.data);
     return response.data;
     
   }
+  async function fetchProductsByCategory(category) {
+    const response =await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+    console.log(response.data);
+    return response.data;
+  }
+  const downloadedProducts =await fetchProducts();
 
 async function populateProducts(flag, customProducts){
   let products= customProducts;
+  const queryParams= new URLSearchParams(window.location.search);
+  const queryParamsObject=Object.fromEntries(queryParams.entries());
   if(flag == false){
+    if (queryParamsObject['category']){
+      products = await fetchProductsByCategory(queryParamsObject['category']);
+
+    }else{
     products = await fetchProducts();
+    }
   }
   const productList = document.querySelector('#productList');
   products.forEach(product => {
@@ -31,7 +44,7 @@ async function populateProducts(flag, customProducts){
 
 
     name.textContent= product.title.substring(0,12)+"...";
-    price.textContent= `&#8377;,${product.price}`;
+    price.textContent= `₹${product.price}`;
     //append div 
 
     productImg.appendChild(imageInsideProductImage);
@@ -52,7 +65,7 @@ const filterSearch = document.querySelector('#SSearch');
   const minPrice = Number(document.querySelector('#minPrice').value);
   const maxPrice = Number(document.querySelector('#maxPrice').value);
 
-  const products = await fetchProducts();
+  const products = downloadedProducts;
   filteredProducts= products.filter(product => product.price>=minPrice && product.price<=maxPrice);
   productList.innerHTML ="";
   populateProducts(true, filteredProducts);
