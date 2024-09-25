@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     console.log(response.data);
     return response.data;
   }
+
+  async function fetchCategories(){
+    const response = await fetch("https://fakestoreapi.com/products/categories");
+    const data = await response.json();
+    return data;
+  }
+
   const downloadedProducts =await fetchProducts();
 
 async function populateProducts(flag, customProducts){
@@ -57,7 +64,26 @@ async function populateProducts(flag, customProducts){
     productList.appendChild(productItem);
   });
 } 
+
+
+async function populateCategories(){
+    const categories = await fetchCategories();
+    const categoryList = document.querySelector('#categoryList');
+      categories.forEach(category=>{
+        const categoryLink = document.createElement('a');
+        categoryLink.classList.add('d-flex', 'text-decoration-none');
+        categoryLink.textContent = category;
+        categoryLink.href=`productList.html?category=${category}`;
+
+        categoryList.appendChild(categoryLink);
+      });
+
+}
+
+
+
 populateProducts(false);
+populateCategories();
 
 const filterSearch = document.querySelector('#SSearch');
  filterSearch.addEventListener("click",async ()=>{
