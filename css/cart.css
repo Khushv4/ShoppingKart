@@ -19,6 +19,7 @@
 }
 .order-details-product-img{
   flex-basis: 25%;
+  height: 200px;
 }
 .order-details-product-img img{
   max-width: 100%;

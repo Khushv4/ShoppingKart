@@ -52,7 +52,7 @@ async function populateProducts(flag, customProducts){
 
 
     name.textContent= product.title.substring(0,12)+"...";
-    price.textContent= `₹${product.price}`;
+    price.textContent= `$${product.price}`;
     //append div 
 
     productImg.appendChild(imageInsideProductImage);

@@ -14,3 +14,8 @@ function removeLoader(){
   const loaderBackdrop = document.querySelector('#loader-backdrop');
   loaderBackdrop.style.display ='none';
 }
+
+async function fetchCartById(id){
+  const cart = await axios.get(`https://fakestoreapi.com/carts/${id}`);
+  return cart.data;
+}
