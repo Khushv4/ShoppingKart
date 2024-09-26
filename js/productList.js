@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded",async ()=>{
 
 async function populateProducts(flag, customProducts){
   let products= customProducts;
-  const queryParams= new URLSearchParams(window.location.search);
-  const queryParamsObject=Object.fromEntries(queryParams.entries());
+  
+  const queryParamsObject=getQueryParams();
   if(flag == false){
     if (queryParamsObject['category']){
       products = await fetchProductsByCategory(queryParamsObject['category']);
@@ -36,7 +36,7 @@ async function populateProducts(flag, customProducts){
   products.forEach(product => {
     const productItem = document.createElement('a');
     productItem.target = '_blank';
-    productItem.href='productDetails.html';
+    productItem.href=`productDetails.html?id=${product.id}`;
     productItem.classList.add('product-item', 'text-decoration-none',  'd-inline-block');
 
     const productImg = document.createElement('div');
@@ -85,8 +85,7 @@ async function populateCategories(){
 async function downloadContentAndPopulate(){
 Promise.all([populateProducts(false), populateCategories()])
 .then(() =>{
-  const loaderBackdrop = document.querySelector('#loader-backdrop');
-  loaderBackdrop.style.display ='none';
+  removeLoader();
 });
 }
 
